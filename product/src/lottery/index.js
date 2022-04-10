@@ -646,9 +646,16 @@ function lottery() {
             selectedCardIndex.push(cardIndex);
         }
         else {
-          currentLuckys.push(basicData.luckyUsers[currentPrize.type][0]);
-          let luckyId = random(7);
-          var letter = "LAWCODE".slice(luckyId, luckyId + 1);
+            var character = basicData.luckyUsers[currentPrize.type][0]
+            currentLuckys.push(character);
+            var letter;
+            if (character[1] == "律") {
+                let luckyId = random(7);
+                letter = "LAWCODE".slice(luckyId, luckyId + 1);
+            } else {
+                let luckyId = random(5);
+                letter = "LWCDE".slice(luckyId, luckyId + 1);
+            }
             currentLuckys.push([null, letter]);
             leftPrizeCount--;
             for (let i = 0; i < 2; i++) {
