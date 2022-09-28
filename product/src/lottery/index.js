@@ -85,7 +85,7 @@ function initAll() {
         if (
           data.luckyData[prizeIndex] &&
           data.luckyData[prizeIndex].length >=
-            basicData.prizes[prizeIndex].count
+          basicData.prizes[prizeIndex].count
         ) {
           continue;
         }
@@ -229,7 +229,7 @@ function bindEvent() {
       // 进入抽奖
       case "enter":
         removeHighlight();
-        addQipao(`马上抽取[${currentPrize.title}],不要走开。`);
+        addQipao(`马上抽取[${currentPrize.text}]，不要走开。`);
         // rotate = !rotate;
         rotate = true;
         switchScreen("lottery");
@@ -267,7 +267,7 @@ function bindEvent() {
           // 抽奖
           lottery();
         });
-        addQipao(`正在抽取[${currentPrize.title}],调整好姿势`);
+        addQipao(`正在抽取[${currentPrize.text}]，调整好姿势`);
         break;
       // 重新抽奖
       case "reLottery":
@@ -276,7 +276,7 @@ function bindEvent() {
           return;
         }
         setErrorData(currentLuckys);
-        addQipao(`重新抽取[${currentPrize.title}],做好准备`);
+        addQipao(`重新抽取[${currentPrize.text}]，做好准备`);
         setLotteryStatus(true);
         // 重新抽奖则直接进行抽取，不对上一次的抽奖数据进行保存
         // 抽奖
@@ -511,7 +511,7 @@ function selectCard(duration = 600) {
 
   let text = currentLuckys.map(item => item[1]);
   addQipao(
-    `恭喜${text.join("、")}获得${currentPrize.title}, 新的一年必定旺旺旺。`
+    `恭喜${text.join("、")}获得${currentPrize.text}。`
   );
 
   selectedCardIndex.forEach((cardIndex, index) => {
@@ -632,24 +632,35 @@ function lottery() {
       basicData.leftUsers = basicData.users.slice();
       leftCount = basicData.leftUsers.length;
     }
-
-    for (let i = 0; i < perCount; i++) {
-      let luckyId = random(leftCount);
-      currentLuckys.push(basicData.leftUsers.splice(luckyId, 1)[0]);
-      leftCount--;
+    if (currentPrize.type == 3) {
+      let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉_cjl", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "弗雷德里克·温斯洛·泰勒", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "看破红尘，孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "Chinese Snakes", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
+      let luckyType = allType[random(45)];
+      currentLuckys.push([luckyType, null]);
       leftPrizeCount--;
-
       let cardIndex = random(TOTAL_CARDS);
       while (selectedCardIndex.includes(cardIndex)) {
         cardIndex = random(TOTAL_CARDS);
       }
       selectedCardIndex.push(cardIndex);
+    }
+    else {
+      for (let i = 0; i < perCount; i++) {
+        let luckyId = random(leftCount);
+        currentLuckys.push(basicData.leftUsers.splice(luckyId, 1)[0]);
+        leftCount--;
+        leftPrizeCount--;
 
-      if (leftPrizeCount === 0) {
-        break;
+        let cardIndex = random(TOTAL_CARDS);
+        while (selectedCardIndex.includes(cardIndex)) {
+          cardIndex = random(TOTAL_CARDS);
+        }
+        selectedCardIndex.push(cardIndex);
+
+        if (leftPrizeCount === 0) {
+          break;
+        }
       }
     }
-
     // console.log(currentLuckys);
     selectCard();
   });
@@ -706,10 +717,12 @@ function random(num) {
  */
 function changeCard(cardIndex, user) {
   let card = threeDCards[cardIndex].element;
-
-  card.innerHTML = `<div class="company">${COMPANY}</div><div class="name">${
-    user[1]
-  }</div><div class="details">${user[0] || ""}<br/>${user[2] || "PSST"}</div>`;
+  if (user[1]) {
+    card.innerHTML = `<div class="name">${user[1]}</div><div class="img"><img src="../img/${user[0]}.png"></div>`;
+  }
+  else {
+    card.innerHTML = `<div class="only-img"><img src="../img/${user[0]}.png"></div>`;
+  }
 }
 
 /**

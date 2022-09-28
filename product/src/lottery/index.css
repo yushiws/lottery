@@ -81,13 +81,39 @@ a {
 
 .element .name {
   position: absolute;
-  top: 4.6vh;
+  top: 11.5vh;
   left: 0;
   right: 0;
   font-size: 2.9vh;
   font-weight: bold;
   color: rgba(255, 255, 255, 0.75);
   text-shadow: 0 0 1vh rgba(0, 255, 255, 0.95);
+}
+
+.element .img {
+  position: absolute;
+  top: 6vh;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.element .only-img {
+  position: absolute;
+  top: 8vh;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.element .only-img img,
+.element .img img {
+  width: 80%;
+  height: 80%;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
 }
 
 .element .details {
@@ -534,39 +560,4 @@ button:active {
 
 .margin-l-40 {
   margin-left: 40px;
-}
-
-.fixed-bar {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-.fixed-btn {
-  margin: 20px 0 0;
-  width: 200px;
-  text-align: center;
-  display: block;
-}
-
-#lottery {
-  animation: breath 1.6s linear infinite;
-  box-shadow: 0px 0px 15px rgb(127 255 255 / 75%);
-}
-
-@keyframes breath {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.8;
-  }
-
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(0.9);
-    opacity: 0.8;
-  }
 }
