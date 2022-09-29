@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 });
 
 //设置跨域访问
-app.all("*", function(req, res, next) {
+app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
@@ -204,11 +204,12 @@ function setErrorData(data) {
 app.use(router);
 
 function loadData() {
-  console.log("加载EXCEL数据文件");
-  let cfgData = {};
+  let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "Frederick Taylor", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "Chinese Snakes", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
+  curData.users = [];
+  for (let key in allType)
+    for (let id of Array(30).keys())
+      curData.users.push([allType[key], ((id + 1) + '').padStart(2, '0')])
 
-  // curData.users = loadXML(path.join(cwd, "data/users.xlsx"));
-  curData.users = loadXML(path.join(dataBath, "data/users.xlsx"));
   // 重新洗牌
   shuffle(curData.users);
 
@@ -247,7 +248,7 @@ function getLeftUsers() {
 loadData();
 
 module.exports = {
-  run: function(devPort, noOpen) {
+  run: function (devPort, noOpen) {
     let openBrowser = true;
     if (process.argv.length > 3) {
       if (process.argv[3] && (process.argv[3] + "").toLowerCase() === "n") {

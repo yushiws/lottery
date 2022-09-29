@@ -57,7 +57,7 @@ a {
 
 .element {
   width: 12vh;
-  height: 16vh;
+  height: 18vh;
   box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
   border: 1px solid rgba(127, 255, 255, 0.25);
   text-align: center;
@@ -72,16 +72,25 @@ a {
 
 .element .company {
   position: absolute;
-  top: 1.2vh;
+  top: 1vh;
   right: 0;
   width: 100%;
-  font-size: 2vh;
+  font-size: 1.8vh;
+  color: rgba(127, 255, 255, 0.75);
+}
+
+.element .only-company {
+  position: absolute;
+  top: 1.5vh;
+  right: 0;
+  width: 100%;
+  font-size: 1.8vh;
   color: rgba(127, 255, 255, 0.75);
 }
 
 .element .name {
   position: absolute;
-  top: 11.5vh;
+  top: 14.2vh;
   left: 0;
   right: 0;
   font-size: 2.9vh;
@@ -92,7 +101,7 @@ a {
 
 .element .img {
   position: absolute;
-  top: 6vh;
+  top: 9vh;
   left: 0;
   right: 0;
   width: 100%;
@@ -100,7 +109,7 @@ a {
 
 .element .only-img {
   position: absolute;
-  top: 8vh;
+  top: 10.5vh;
   left: 0;
   right: 0;
   width: 100%;
@@ -147,9 +156,9 @@ button:active {
 }
 
 .highlight {
-  background-color: rgba(253, 105, 0, 0.95) !important;
-  box-shadow: 0 0 12px rgba(253, 105, 0, 0.95);
-  border: 1px solid rgba(253, 105, 0, 0.25);
+  background-color: rgba(162, 41, 32, 0.95) !important;
+  box-shadow: 0 0 12px rgba(162, 41, 32, 0.95);
+  border: 1px solid rgba(162, 41, 32, 0.25);
 }
 
 .highlight.element .name {
@@ -162,14 +171,16 @@ button:active {
 
 .prize.element {
   transition: background-color 1.5s ease-in 0.3s;
-  background-color: rgba(253, 105, 0, 0.85) !important;
-  box-shadow: 0 0 12px rgba(253, 105, 0, 0.95);
+  background-color: rgba(162, 41, 32, 0.85) !important;
+  box-shadow: 0 0 12px rgba(162, 41, 32, 0.95);
 }
 
 .prize .company,
+.prize .only-company,
 .prize .details,
 .prize .name,
 .highlight .company,
+.highlight .only-company,
 .highlight .name,
 .highlight .details {
   color: rgba(255, 255, 255, 0.85);
@@ -273,7 +284,7 @@ button:active {
   border-radius: 1.8vh;
   position: relative;
   animation: animate-positive 2s;
-  background-color: #d9534f;
+  background-color: #7a1c15;
   height: 1.8vh;
   -webkit-transition: width 0.6s ease;
   -o-transition: width 0.6s ease;
@@ -494,7 +505,9 @@ button:active {
 .prize-shine {
   font-size: 5vh;
   font-weight: bold;
-  color: #db5c58;
+  color: #7a1c15;
+  -webkit-text-stroke-color: rgba(135, 195, 202, 1);
+  -webkit-text-stroke-width: 1px;
   vertical-align: middle;
   padding: 0 6px;
 }
@@ -540,7 +553,7 @@ button:active {
   font-size: 1.4vh;
   color: #fff;
   cursor: pointer;
-  background-color: rgba(253, 105, 0, 0.9);
+  background-color: rgba(162, 41, 32, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 

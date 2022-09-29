@@ -124,7 +124,7 @@ function initCards() {
     totalMember = member.length,
     position = {
       x: (140 * COLUMN_COUNT - 20) / 2,
-      y: (180 * ROW_COUNT - 20) / 2
+      y: (190 * ROW_COUNT - 20) / 2
     };
 
   camera = new THREE.PerspectiveCamera(
@@ -157,7 +157,7 @@ function initCards() {
 
       var object = new THREE.Object3D();
       object.position.x = j * 140 - position.x;
-      object.position.y = -(i * 180) + position.y;
+      object.position.y = -(i * 190) + position.y;
       targets.table.push(object);
       index++;
     }
@@ -229,7 +229,7 @@ function bindEvent() {
       // 进入抽奖
       case "enter":
         removeHighlight();
-        addQipao(`马上抽取[${currentPrize.text}]，不要走开。`);
+        addQipao(`马上抽取${currentPrize.text}，不要走开`);
         // rotate = !rotate;
         rotate = true;
         switchScreen("lottery");
@@ -267,16 +267,16 @@ function bindEvent() {
           // 抽奖
           lottery();
         });
-        addQipao(`正在抽取[${currentPrize.text}]，调整好姿势`);
+        addQipao(`正在抽取${currentPrize.text}`);
         break;
       // 重新抽奖
       case "reLottery":
         if (currentLuckys.length === 0) {
-          addQipao(`当前还没有抽奖，无法重新抽取喔~~`);
+          addQipao(`当前还没有抽奖，无法重新抽取`);
           return;
         }
         setErrorData(currentLuckys);
-        addQipao(`重新抽取[${currentPrize.text}]，做好准备`);
+        addQipao(`重新抽取${currentPrize.text}`);
         setLotteryStatus(true);
         // 重新抽奖则直接进行抽取，不对上一次的抽奖数据进行保存
         // 抽奖
@@ -293,7 +293,7 @@ function bindEvent() {
             currentLuckys = [];
           });
           exportData();
-          addQipao(`数据已保存到EXCEL中。`);
+          addQipao(`数据已保存到EXCEL中`);
         });
         break;
     }
@@ -345,11 +345,8 @@ function createCard(user, isBold, id, showTable) {
       "rgba(0,127,127," + (Math.random() * 0.7 + 0.25) + ")";
   }
   //添加公司标识
-  element.appendChild(createElement("company", COMPANY));
+  element.innerHTML = `<div class="company">${user[0]}</div><div class="img"><img src="../img/${user[0]}.png"></div><div class="name">${user[1]}</div>`;
 
-  element.appendChild(createElement("name", user[1]));
-
-  element.appendChild(createElement("details", user[0] + "<br/>" + user[2]));
   return element;
 }
 
@@ -509,9 +506,9 @@ function selectCard(duration = 600) {
     }
   }
 
-  let text = currentLuckys.map(item => item[1]);
+  let text = currentLuckys.map(item => item[1] ? item[0] + item[1] : item[0]);
   addQipao(
-    `恭喜${text.join("、")}获得${currentPrize.text}。`
+    `恭喜${text.join("、")}获得${currentPrize.text}`
   );
 
   selectedCardIndex.forEach((cardIndex, index) => {
@@ -632,10 +629,21 @@ function lottery() {
       basicData.leftUsers = basicData.users.slice();
       leftCount = basicData.leftUsers.length;
     }
-    if (currentPrize.type == 3) {
-      let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉_cjl", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "弗雷德里克·温斯洛·泰勒", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "看破红尘，孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "Chinese Snakes", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
+    let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "Frederick Taylor", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "Chinese Snakes", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
+    if (currentPrize.type == 3 || (currentPrize.type == 1 && leftPrizeCount == 2)) {
       let luckyType = allType[random(45)];
       currentLuckys.push([luckyType, null]);
+      leftPrizeCount--;
+      let cardIndex = random(TOTAL_CARDS);
+      while (selectedCardIndex.includes(cardIndex)) {
+        cardIndex = random(TOTAL_CARDS);
+      }
+      selectedCardIndex.push(cardIndex);
+    }
+    else if (currentPrize.type == 1) {
+      let luckyType = basicData.luckyUsers[currentPrize.type][0][0];
+      let luckyId = ((random(30) + 1) + '').padStart(2, '0');
+      currentLuckys.push([luckyType, luckyId]);
       leftPrizeCount--;
       let cardIndex = random(TOTAL_CARDS);
       while (selectedCardIndex.includes(cardIndex)) {
@@ -718,10 +726,10 @@ function random(num) {
 function changeCard(cardIndex, user) {
   let card = threeDCards[cardIndex].element;
   if (user[1]) {
-    card.innerHTML = `<div class="name">${user[1]}</div><div class="img"><img src="../img/${user[0]}.png"></div>`;
+    card.innerHTML = `<div class="company">${user[0]}</div><div class="img"><img src="../img/${user[0]}.png"></div><div class="name">${user[1]}</div>`;
   }
   else {
-    card.innerHTML = `<div class="only-img"><img src="../img/${user[0]}.png"></div>`;
+    card.innerHTML = `<div class="only-company">${user[0]}</div><div class="only-img"><img src="../img/${user[0]}.png"></div>`;
   }
 }
 
@@ -817,20 +825,19 @@ function reset() {
 }
 
 function createHighlight() {
-  let year = new Date().getFullYear() + "";
-  let step = 4,
-    xoffset = 1,
+  let step = 8,
+    xoffset = 2,
     yoffset = 1,
     highlight = [];
 
-  year.split("").forEach(n => {
+  for (let n in NUMBER_MATRIX) {
     highlight = highlight.concat(
       NUMBER_MATRIX[n].map(item => {
         return `${item[0] + xoffset}-${item[1] + yoffset}`;
       })
     );
     xoffset += step;
-  });
+  };
 
   return highlight;
 }
