@@ -173,6 +173,7 @@ button:active {
   transition: background-color 1.5s ease-in 0.3s;
   background-color: rgba(162, 41, 32, 0.85) !important;
   box-shadow: 0 0 12px rgba(162, 41, 32, 0.95);
+  border: 1px solid rgba(162, 41, 32, 0.25);
 }
 
 .prize .company,

@@ -519,7 +519,7 @@ function selectCard(duration = 600) {
         {
           x: locates[index].x,
           y: locates[index].y * Resolution,
-          z: 2200
+          z: 2500
         },
         Math.random() * duration + duration
       )
@@ -629,7 +629,7 @@ function lottery() {
       basicData.leftUsers = basicData.users.slice();
       leftCount = basicData.leftUsers.length;
     }
-    let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "Frederick Taylor", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "Chinese Snakes", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
+    let allType = ["乐动力减一", "健康工作", "健美身材", "冰墩墩", "套马的汉子", "登上紫荆之巅", "蛋白粉", "长跑满分", "马杯冠军", "4.00", "分支定界", "工业工程概论", "泰勒", "满绩成绩单", "现代制造", "脑白金", "舜德刷夜", "遗传算法", "二校门", "成为校花", "紫荆花", "羊胎素", "美羊羊", "美美脱单", "荷塘月色", "蒙娜丽莎", "魔仙女王", "乌鸦屎", "屹立不倒", "抱大腿", "抽中核酸", "疫情退散", "孤寡终生", "福灵剂", "选课不掉", "雨课堂点名", "中国蛇", "IE小助手", "伟伦楼归工工", "出校自由", "奇迹工厂", "树洞顶流", "燕园情", "蓬莱玉枝", "魔鬼司令"];
     if (currentPrize.type == 3 || (currentPrize.type == 1 && leftPrizeCount == 2)) {
       let luckyType = allType[random(45)];
       currentLuckys.push([luckyType, null]);
