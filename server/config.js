@@ -22,7 +22,7 @@ const prizes = [
   },
   {
     type: 2,
-    count: 5,
+    count: 4,
     text: "二等奖",
     title: "",
     img: "../img/huawei.png"
