@@ -138,7 +138,7 @@ router.post("/errorData", (req, res, next) => {
 // 保存数据到excel中去
 router.post("/export", (req, res, next) => {
   let type = [1, 2, 3, 4, 5, defaultType],
-    outData = [["工号", "姓名", "部门"]];
+    outData = [];
   cfg.prizes.forEach(item => {
     outData.push([item.text]);
     outData = outData.concat(luckyData[item.type] || []);
@@ -229,17 +229,17 @@ function getLeftUsers() {
   for (let key in luckyData) {
     let luckys = luckyData[key];
     luckys.forEach(item => {
-      lotteredUser[item[0]] = true;
+      lotteredUser[item] = true;
     });
   }
   // 记录当前已抽取但是不在线人员
   errorData.forEach(item => {
-    lotteredUser[item[0]] = true;
+    lotteredUser[item] = true;
   });
 
   let leftUsers = Object.assign([], curData.users);
   leftUsers = leftUsers.filter(user => {
-    return !lotteredUser[user[0]];
+    return !lotteredUser[user];
   });
   curData.leftUsers = leftUsers;
 }
