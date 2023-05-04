@@ -22,14 +22,14 @@ const prizes = [
   },
   {
     type: 2,
-    count: 5,
+    count: 10,
     text: "二等奖",
     title: "",
     img: "../img/huawei.png"
   },
   {
     type: 3,
-    count: 2,
+    count: 30,
     text: "三等奖",
     title: "",
     img: "../img/ipad.jpg"
@@ -39,12 +39,12 @@ const prizes = [
 /**
  * 一次抽取的奖品个数与prizes对应
  */
-const EACH_COUNT = [1, 1, 1, 1];
+const EACH_COUNT = [1, 1, 1, 5];
 
 /**
  * 卡片公司名称标识
  */
-const COMPANY = "律 码";
+const COMPANY = "车夜狂欢<br>第零大道";
 
 module.exports = {
   prizes,

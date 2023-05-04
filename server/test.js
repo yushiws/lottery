@@ -11,7 +11,7 @@ for (let key in luckyData) {
   item.forEach(user => {
     let id = user[0];
     if (selected[id]) {
-      repeat.push(user[1]);
+      repeat.push(user[0]);
       return;
     }
     selected[id] = true;
@@ -21,7 +21,7 @@ for (let key in luckyData) {
 errorData.forEach(user => {
   let id = user[0];
   if (selected[id]) {
-    repeat.push(user[1]);
+    repeat.push(user[0]);
     return;
   }
   selected[id] = true;

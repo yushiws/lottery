@@ -158,7 +158,7 @@ function showPrizeList(currentPrizeIndex) {
   if (currentPrize.type === defaultType) {
     currentPrize.count === "不限制";
   }
-  let htmlCode = `<div class="prize-mess">正在抽取<label id="prizeType" class="prize-shine">${currentPrize.text}</label><label id="prizeText" class="prize-shine">${currentPrize.title}</label>，剩余<label id="prizeLeft" class="prize-shine">${currentPrize.count}</label>个</div><ul class="prize-list">`;
+  let htmlCode = `<div class="prize-mess">正在抽取<label id="prizeType" class="prize-shine">${currentPrize.text}</label>，剩余<label id="prizeLeft" class="prize-shine">${currentPrize.count}</label>个</div><ul class="prize-list">`;
   prizes.forEach(item => {
     if (item.type === defaultType) {
       return true;
@@ -217,7 +217,6 @@ let setPrizeData = (function () {
     if (!prizeElement.prizeType) {
       prizeElement.prizeType = document.querySelector("#prizeType");
       prizeElement.prizeLeft = document.querySelector("#prizeLeft");
-      prizeElement.prizeText = document.querySelector("#prizeText");
     }
 
     if (isInit) {
@@ -238,14 +237,12 @@ let setPrizeData = (function () {
       lastBox.classList.add("done");
       elements.box && elements.box.classList.add("shine");
       prizeElement.prizeType.textContent = currentPrize.text;
-      prizeElement.prizeText.textContent = currentPrize.title;
 
       lasetPrizeIndex = currentPrizeIndex;
     }
 
     if (currentPrizeIndex === 0) {
       prizeElement.prizeType.textContent = "特别奖";
-      prizeElement.prizeText.textContent = " ";
       prizeElement.prizeLeft.textContent = "不限制";
       return;
     }

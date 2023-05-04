@@ -13,6 +13,17 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff2?|eot|ttf|otf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            limit: 10000,
+            name: '[name].[hash:7].[ext]',
+            esModule: false
+          }
+        },
+      },
+      {
         test: /(\.jsx|\.js)$/,
         use: {
           loader: "babel-loader"
@@ -69,7 +80,11 @@ module.exports = {
       {
         from: "./src/lib",
         to: "./lib"
-      }
+      },
+      {
+        from: "./src/fonts",
+        to: "./fonts"
+      },
     ])
   ]
 };
