@@ -80,23 +80,13 @@ function initAll() {
       basicData.leftUsers = data.leftUsers;
       basicData.luckyUsers = data.luckyData;
 
-      let prizeIndex = basicData.prizes.length - 1;
-      for (; prizeIndex > -1; prizeIndex--) {
-        if (
-          data.luckyData[prizeIndex] &&
-          data.luckyData[prizeIndex].length >=
-            basicData.prizes[prizeIndex].count
-        ) {
-          continue;
-        }
-        currentPrizeIndex = prizeIndex;
-        currentPrize = basicData.prizes[currentPrizeIndex];
-        break;
-      }
+      currentPrizeIndex = data.luckyData[1] ? 4 - data.luckyData[1].length : 4;
+      data.luckyData[currentPrizeIndex] = [];
+      basicData.luckyUsers[currentPrizeIndex] = [];
+      currentPrize = basicData.prizes[currentPrizeIndex];
 
       showPrizeList(currentPrizeIndex);
-      let curLucks = basicData.luckyUsers[currentPrize.type];
-      setPrizeData(currentPrizeIndex, curLucks ? curLucks.length : 0, true);
+      setPrizeData(currentPrizeIndex, 0, true);
     }
   });
 
@@ -342,12 +332,14 @@ function createCard(user, isBold, id, showTable) {
   } else {
     element.className = "element";
     element.style.backgroundColor =
-      "rgba(32, 42, 103, " + (Math.random() * 0.7 + 0.25) + ")";
+      "rgba(120, 34, 95, " + (Math.random() * 0.7 + 0.25) + ")";
   }
   //添加公司标识
   element.appendChild(createElement("company", COMPANY));
 
   element.appendChild(createElement("name", user[0]));
+
+  element.appendChild(createElement("number", user[1]));
 
   //element.appendChild(createElement("details", user[0] + "<br/>" + user[2]));
   return element;
@@ -509,7 +501,7 @@ function selectCard(duration = 600) {
     }
   }
 
-  let text = currentLuckys.map(item => item[0]);
+  let text = currentLuckys.map(item => item[0] + item[1]);
   addQipao(
     `恭喜${text.join("、")}获得${currentPrize.text}`
   );
@@ -632,23 +624,47 @@ function lottery() {
       basicData.leftUsers = basicData.users.slice();
       leftCount = basicData.leftUsers.length;
     }
-    for (let i = 0; i < perCount; i++) {
-      let luckyId = random(leftCount);
-      currentLuckys.push(basicData.leftUsers.splice(luckyId, 1)[0]);
-      leftCount--;
-      leftPrizeCount--;
+    if (currentPrize.type == 4) {
+      let luckyId = random(52);
+      currentLuckys.push([luckyId, null]);
+      leftPrizeCount -= perCount;
 
       let cardIndex = random(TOTAL_CARDS);
       while (selectedCardIndex.includes(cardIndex)) {
-        cardIndex = random(TOTAL_CARDS);
+          cardIndex = random(TOTAL_CARDS);
       }
       selectedCardIndex.push(cardIndex);
-
-      if (leftPrizeCount === 0) {
-        break;
-      }
     }
-// console.log(currentLuckys);
+    else if (currentPrize.type == 1) {
+      let luckyId = random(100);
+      currentLuckys.push([null, "(520," + luckyId + ")"]);
+      leftPrizeCount --;
+
+      let cardIndex = random(TOTAL_CARDS);
+      while (selectedCardIndex.includes(cardIndex)) {
+          cardIndex = random(TOTAL_CARDS);
+      }
+      selectedCardIndex.push(cardIndex);
+    }
+    else {
+      for (let i = 0; i < perCount; i++) {
+        let luckyId = random(leftCount);
+        currentLuckys.push(basicData.leftUsers.splice(luckyId, 1)[0]);
+        leftCount--;
+        leftPrizeCount--;
+
+        let cardIndex = random(TOTAL_CARDS);
+        while (selectedCardIndex.includes(cardIndex)) {
+          cardIndex = random(TOTAL_CARDS);
+        }
+        selectedCardIndex.push(cardIndex);
+
+        if (leftPrizeCount === 0) {
+          break;
+        }
+      }
+  // console.log(currentLuckys);
+    }
     selectCard();
   });
 }
@@ -669,13 +685,35 @@ function saveData() {
 
   basicData.luckyUsers[type] = curLucky;
 
-  if (currentPrize.count <= curLucky.length) {
-    currentPrizeIndex--;
-    if (currentPrizeIndex <= -1) {
-      currentPrizeIndex = 0;
-    }
-    currentPrize = basicData.prizes[currentPrizeIndex];
+  switch (type) {
+    case 1:
+      switch (curLucky.length) {
+        case 0:
+          currentPrizeIndex = 1;
+          break;
+        case 2:
+          currentPrizeIndex = 2;
+          break;
+        case 1:
+          currentPrizeIndex = 3;
+          break;
+        default:
+          currentPrizeIndex = 0;
+          break;
+      }
+    case 2:
+    case 3:
+      if (curLucky.length >= currentPrize.count)
+        currentPrizeIndex = 1;
+      break;
+    case 4:
+      if (curLucky.length > 0)
+        currentPrizeIndex = 1;
+      break;
+    default:
+      break;
   }
+  currentPrize = basicData.prizes[currentPrizeIndex];
 
   if (currentLuckys.length > 0) {
     // todo by xc 添加数据保存机制，以免服务器挂掉数据丢失
@@ -705,8 +743,21 @@ function random(num) {
 function changeCard(cardIndex, user) {
   let card = threeDCards[cardIndex].element;
 
-  card.innerHTML = `<div class="name">${user[0] || ''}</div>
-                    <div class="company">${COMPANY || ''}</div>`;
+  if (user[0] && user[1]) {
+    card.innerHTML = `<div class="name">${user[0]}</div>
+                      <div class="number">${user[1]}</div>
+                      <div class="company">${COMPANY || ''}</div>`;
+  }
+  else if (user[0]) {
+    card.innerHTML = `<div class="number_mod">${user[0]}</div>
+                      <div class="mod">(mod 52)</div>
+                      <div class="company">${COMPANY || ''}</div>`;
+  }
+  else {
+    card.innerHTML = `<div class="name">Gamma</div>
+                      <div class="number_gamma">${user[1]}</div>
+                      <div class="company">${COMPANY || ''}</div>`;
+  }
 }
 
 /**
@@ -715,7 +766,7 @@ function changeCard(cardIndex, user) {
 function shine(cardIndex, color) {
   let card = threeDCards[cardIndex].element;
   card.style.backgroundColor =
-    color || "rgba(32, 42, 103, " + (Math.random() * 0.7 + 0.25) + ")";
+    color || "rgba(120, 34, 95, " + (Math.random() * 0.55 + 0.4) + ")";
 }
 
 /**

@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(woff2?|eot|ttf|otf)$/,
+        test: /\.(woff2?|eot|ttf|TTF|otf)$/,
         use: {
           loader: 'file-loader',
           options: {

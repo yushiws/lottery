@@ -175,13 +175,14 @@ function showPrizeList(currentPrizeIndex) {
                                 <div class="progress">
                                     <div id="prize-bar-${
                                       item.type
-                                    }" class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 100%;">
+                                    }" class="progress-bar progress-bar-danger progress-bar-striped active" style="width: ${
+                                      ((item.type == 1 ? (currentPrize.type - 1) : item.count) / item.count).toFixed(2)* 100}%;">
                                     </div>
                                 </div>
                                 <div id="prize-count-${
                                   item.type
                                 }" class="prize-count-left">
-                                    ${item.count + "/" + item.count}
+                                    ${(item.type == 1 ? (currentPrize.type - 1) : item.count) + "/" + item.count}
                                 </div>
                             </div>
                         </div>
@@ -234,7 +235,9 @@ let setPrizeData = (function () {
       let lastPrize = prizes[lasetPrizeIndex],
         lastBox = document.querySelector(`#prize-item-${lastPrize.type}`);
       lastBox.classList.remove("shine");
-      lastBox.classList.add("done");
+      if (lasetPrizeIndex !== 1) {
+        lastBox.classList.add("done");
+      }
       elements.box && elements.box.classList.add("shine");
       prizeElement.prizeType.textContent = currentPrize.text;
 

@@ -1,6 +1,11 @@
 @font-face {
-  font-family: 'YouSheBiaoTiHei';
-  src: url('../fonts/YouSheBiaoTiHei.ttf');
+  font-family: 'ZIYUYONGSONGTI';
+  src: url('../fonts/ZIYUYONGSONGTI-2.TTF');
+}
+
+@font-face {
+  font-family: 'OCRAEXT';
+  src: url('../fonts/OCRAEXT.TTF');
 }
 
 html,
@@ -63,27 +68,71 @@ a {
 .element {
   width: 12vh;
   height: 16vh;
-  box-shadow: 0 0 12px rgba(79, 173, 225, 0.5);
-  border: 1px solid rgba(79, 173, 225, 0.75);
+  box-shadow: 0 0 12px rgba(41, 27, 78, 0.5);
+  border: 1px solid rgba(41, 27, 78, 0.75);
   text-align: center;
   cursor: default;
   transition: background-color 0.3s ease-in;
 }
 
 .element:hover {
-  box-shadow: 0 0 12px rgba(79, 173, 225, 0.75);
-  border: 1px solid rgba(79, 173, 225, 0.75);
+  box-shadow: 0 0 12px rgba(41, 27, 78, 0.75);
+  border: 1px solid rgba(41, 27, 78, 0.75);
 }
 
 .element .name {
   position: absolute;
-  top: 8vh;
+  top: 6.5vh;
   right: 0;
   width: 100%;
-  font-size: 4vh;
-  font-family: 'YouSheBiaoTiHei';
+  font-size: 1.7vh;
+  font-family: 'OCRAEXT';
   color: rgba(255, 255, 255, 0.75);
-  text-shadow: 0 0 1vh rgba(79, 173, 225, 0.95);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
+}
+
+.element .number {
+  position: absolute;
+  top: 9.5vh;
+  right: 0;
+  width: 100%;
+  font-size: 3vh;
+  font-family: 'OCRAEXT';
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
+}
+
+.element .number_mod {
+  position: absolute;
+  top: 6.5vh;
+  right: 0;
+  width: 100%;
+  font-size: 3vh;
+  font-family: 'OCRAEXT';
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
+}
+
+.element .number_gamma {
+  position: absolute;
+  top: 9.5vh;
+  right: 0;
+  width: 100%;
+  font-size: 2.5vh;
+  font-family: 'OCRAEXT';
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
+}
+
+.element .mod {
+  position: absolute;
+  top: 10vh;
+  right: 0;
+  width: 100%;
+  font-size: 1.7vh;
+  font-family: 'OCRAEXT';
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
 }
 
 .element .company {
@@ -92,15 +141,15 @@ a {
   left: 0;
   right: 0;
   font-size: 1.5vh;
-  font-family: 'YouSheBiaoTiHei';
+  font-family: 'ZIYUYONGSONGTI';
   color: rgba(255, 255, 255, 0.75);
-  text-shadow: 0 0 1vh rgba(79, 173, 225, 0.95);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
 }
 
 button {
-  color: rgba(127, 255, 255, 0.75);
+  color: rgba(237, 182, 203, 1);
   background: transparent;
-  outline: 1px solid rgba(127, 255, 255, 0.75);
+  outline: 1px solid rgba(237, 182, 203, 1);
   border: 0;
   padding: 1.6vh 4vh;
   margin: 0 4.6vh;
@@ -110,28 +159,32 @@ button {
 }
 
 button:hover {
-  background-color: rgba(0, 255, 255, 0.5);
+  background-color: rgba(237, 182, 203, 0.5);
 }
 
 button:active {
   color: #000000;
-  background-color: rgba(0, 255, 255, 0.75);
+  background-color: rgba(237, 182, 203, 0.75);
 }
 
 .highlight {
-  background-color: rgba(79, 173, 225, 0.7) !important;
-  box-shadow: 0 0 12px rgba(79, 173, 225, 0.5);
-  border: 1px solid rgba(79, 173, 225, 0.75);
+  background-color: rgba(237, 182, 203, 0.7) !important;
+  box-shadow: 0 0 12px rgba(237, 182, 203, 0.5);
+  border: 1px solid rgba(237, 182, 203, 0.75);
 }
 
 .highlight.element .name,
+.highlight.element .number,
+.highlight.element .number_mod,
+.highlight.element .number_gamma,
+.highlight.element .mod,
 .highlight.element .company {
-  text-shadow: 0 0 1vh rgba(79, 173, 225, 0.95);
+  text-shadow: 0 0 1vh rgba(237, 182, 203, 0.95);
 }
 
 .prize.element {
   transition: background-color 1.5s ease-in 0.3s;
-  background-color: rgba(32, 42, 103, 0.95) !important;
+  background-color: rgba(120, 34, 95, 0.95) !important;
 }
 
 .dan-mu {
@@ -146,10 +199,10 @@ button:active {
   line-height: 2.2vh;
   border-radius: 1vh;
   box-sizing: border-box;
-  background-color: rgba(0, 127, 127, 0.37);
-  box-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
-  border: 1px solid rgba(127, 255, 255, 0.25);
-  color: rgba(127, 255, 255, 0.75);
+  background-color: rgba(237, 182, 203, 0.5);
+  box-shadow: 0 0 4px rgba(237, 182, 203, 0.5);
+  border: 1px solid rgba(237, 182, 203, 0.25);
+  color: rgba(237, 182, 203, 1);
 }
 
 .dan-mu.active {
@@ -178,9 +231,9 @@ button:active {
   justify-content: center;
   border-radius: 4px;
   flex-wrap: nowrap;
-  background-color: rgba(103,130,185, 0.6);
-  border: 1px solid rgba(127, 255, 255, 0.25);
-  color: rgba(127, 255, 255, 0.75);
+  background-color: rgba(120, 34, 95, 1);
+  border: 1px solid rgba(120, 34, 95, 0.25);
+  color: rgba(237, 182, 203, 1);
   width: 30vh;
   height: 10vh;
   box-sizing: border-box;
@@ -193,7 +246,7 @@ button:active {
   margin-right: 1.2vh;
   border-radius: 50%;
   background-color: #fff;
-  text-shadow: 0 0 1vh rgba(79, 173, 225, 0.95);
+  text-shadow: 0 0 1vh rgba(237, 182, 203, 0.95);
   overflow: hidden;
 }
 
@@ -232,7 +285,7 @@ button:active {
   border-radius: 1.8vh;
   position: relative;
   animation: animate-positive 2s;
-  background-color: #4fade1;
+  background-color: #edb6cb;
   height: 1.8vh;
   -webkit-transition: width 0.6s ease;
   -o-transition: width 0.6s ease;
@@ -326,7 +379,7 @@ button:active {
 }
 
 .shine {
-  box-shadow: 0 0 15px 0 rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px 0 rgba(237, 182, 202, 0.5);
   transform: scale(1.2);
   transform-origin: left center;
   position: relative;
@@ -359,7 +412,7 @@ button:active {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
+  background: linear-gradient(90deg, transparent, #edb6cb);
   animation: animate1 1s linear infinite
 }
 
@@ -379,7 +432,7 @@ button:active {
   right: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
+  background: linear-gradient(180deg, transparent, #edb6cb);
   animation: animate2 1s linear infinite;
   animation-delay: .25s
 }
@@ -400,7 +453,7 @@ button:active {
   right: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
+  background: linear-gradient(270deg, transparent, #edb6cb);
   animation: animate3 1s linear infinite;
   animation-delay: .50s
 }
@@ -421,7 +474,7 @@ button:active {
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
+  background: linear-gradient(360deg, transparent, #edb6cb);
   animation: animate4 1s linear infinite;
   animation-delay: .75s
 }
@@ -453,7 +506,7 @@ button:active {
 .prize-shine {
   font-size: 5vh;
   font-weight: bold;
-  color: #69d9ed;
+  color: #edb6cb;
   vertical-align: middle;
   padding: 0 6px;
 }
@@ -474,8 +527,8 @@ button:active {
   margin: 4px 0;
   box-sizing: border-box;
   font-size: 14px;
-  background-color: rgba(127, 255, 255, 0.25);
-  color: rgba(127, 255, 255, 0.75);
+  background-color: rgba(237, 182, 203, 0.5);
+  color: rgba(237, 182, 203, 1);
 }
 
 .music {
@@ -536,7 +589,7 @@ button:active {
 
 #lottery {
   animation: breath 1.6s linear infinite;
-  box-shadow: 0px 0px 15px rgb(127 255 255 / 75%);
+  box-shadow: 0px 0px 15px rgb(237, 182, 203, 1);
 }
 
 @keyframes breath {
