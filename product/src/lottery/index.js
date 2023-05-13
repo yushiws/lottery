@@ -268,6 +268,9 @@ function bindEvent() {
         setErrorData(currentLuckys);
         addQipao(`重新抽取${currentPrize.text}`);
         setLotteryStatus(true);
+        if (currentPrize.type == 2) {
+          basicData.luckyUsers[2] = [];
+        }
         // 重新抽奖则直接进行抽取，不对上一次的抽奖数据进行保存
         // 抽奖
         resetCard().then(res => {
@@ -500,11 +503,12 @@ function selectCard(duration = 600) {
       tag++;
     }
   }
-
-  let text = currentLuckys.map(item => item[0] + item[1]);
-  addQipao(
-    `恭喜${text.join("、")}获得${currentPrize.text}`
-  );
+  if (currentLuckys[0][1]) {
+    let text = currentLuckys.map(item => item[0]+item[1]);
+    addQipao(
+      `恭喜${text.join("、")}获得${currentPrize.text}`
+    );
+  }
 
   selectedCardIndex.forEach((cardIndex, index) => {
     changeCard(cardIndex, currentLuckys[index]);
@@ -626,7 +630,7 @@ function lottery() {
     }
     if (currentPrize.type == 4) {
       let luckyId = random(52);
-      currentLuckys.push([luckyId, null]);
+      currentLuckys.push([null, luckyId]);
       leftPrizeCount -= perCount;
 
       let cardIndex = random(TOTAL_CARDS);
@@ -635,9 +639,39 @@ function lottery() {
       }
       selectedCardIndex.push(cardIndex);
     }
+    else if (currentPrize.type == 2) {
+      if (!(luckyData ? luckyData.length : 0)) {
+        let luckyId = random(4);
+        var character = ["Poisson", "Normal", "Exponential", "Bernoulli"][luckyId];
+        currentLuckys.push([character, null]);
+
+        let cardIndex = random(TOTAL_CARDS);
+        while (selectedCardIndex.includes(cardIndex)) {
+          cardIndex = random(TOTAL_CARDS);
+        }
+        selectedCardIndex.push(cardIndex);
+      } else {
+        let luckyId = random(520);
+        var character = basicData.luckyUsers[currentPrize.type][0][0];
+        if (luckyId < 10) {
+          currentLuckys.push([character, "000"+luckyId]);
+        } else if (luckyId < 100) {
+          currentLuckys.push([character, "00"+luckyId]);
+        } else {
+          currentLuckys.push([character, "0"+luckyId]);
+        }
+        leftPrizeCount--;
+
+        let cardIndex = random(TOTAL_CARDS);
+        while (selectedCardIndex.includes(cardIndex)) {
+          cardIndex = random(TOTAL_CARDS);
+        }
+        selectedCardIndex.push(cardIndex);
+      }
+    }
     else if (currentPrize.type == 1) {
       let luckyId = random(100);
-      currentLuckys.push([null, "(520," + luckyId + ")"]);
+      currentLuckys.push(["Gamma", "(520," + luckyId + ")"]);
       leftPrizeCount --;
 
       let cardIndex = random(TOTAL_CARDS);
@@ -673,11 +707,6 @@ function lottery() {
  * 保存上一次的抽奖结果
  */
 function saveData() {
-  if (!currentPrize) {
-    //若奖品抽完，则不再记录数据，但是还是可以进行抽奖
-    return;
-  }
-
   let type = currentPrize.type,
     curLucky = basicData.luckyUsers[type] || [];
 
@@ -701,7 +730,11 @@ function saveData() {
           currentPrizeIndex = 0;
           break;
       }
+      break;
     case 2:
+      if (curLucky.length >= 2)
+        currentPrizeIndex = 1;
+      break;
     case 3:
       if (curLucky.length >= currentPrize.count)
         currentPrizeIndex = 1;
@@ -743,19 +776,24 @@ function random(num) {
 function changeCard(cardIndex, user) {
   let card = threeDCards[cardIndex].element;
 
-  if (user[0] && user[1]) {
-    card.innerHTML = `<div class="name">${user[0]}</div>
-                      <div class="number">${user[1]}</div>
+  if (!user[0]) {
+    card.innerHTML = `<div class="mod">(mod 52)</div>
+                      <div class="number_mod">${user[1]}</div>
                       <div class="company">${COMPANY || ''}</div>`;
   }
-  else if (user[0]) {
-    card.innerHTML = `<div class="number_mod">${user[0]}</div>
-                      <div class="mod">(mod 52)</div>
+  else if (user[0] == "Gamma") {
+    card.innerHTML = `<div class="name">${user[0]}</div>
+                      <div class="number_gamma">${user[1]}</div>
+                      <div class="company">${COMPANY || ''}</div>`;
+  }
+  else if (!user[1]) {
+    card.innerHTML = `<div class="name">${user[0]}</div>
+                      <div class="unknown">?</div>
                       <div class="company">${COMPANY || ''}</div>`;
   }
   else {
-    card.innerHTML = `<div class="name">Gamma</div>
-                      <div class="number_gamma">${user[1]}</div>
+    card.innerHTML = `<div class="name">${user[0]}</div>
+                      <div class="number">${user[1]}</div>
                       <div class="company">${COMPANY || ''}</div>`;
   }
 }

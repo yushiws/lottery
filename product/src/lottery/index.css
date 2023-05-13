@@ -124,6 +124,17 @@ a {
   text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
 }
 
+.element .unknown {
+  position: absolute;
+  top: 9.5vh;
+  right: 0;
+  width: 100%;
+  font-size: 2.5vh;
+  font-family: 'ZIYUYONGSONGTI';
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 1vh rgba(41, 27, 78, 0.95);
+}
+
 .element .mod {
   position: absolute;
   top: 10vh;
@@ -177,6 +188,7 @@ button:active {
 .highlight.element .number,
 .highlight.element .number_mod,
 .highlight.element .number_gamma,
+.highlight.element .unknown,
 .highlight.element .mod,
 .highlight.element .company {
   text-shadow: 0 0 1vh rgba(237, 182, 203, 0.95);

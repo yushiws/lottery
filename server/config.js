@@ -42,12 +42,12 @@ const prizes = [
 /**
  * 一次抽取的奖品个数与prizes对应
  */
-const EACH_COUNT = [1, 1, 1, 10, 40];
+const EACH_COUNT = [1, 1, 1, 1, 40];
 
 /**
  * 卡片公司名称标识
  */
-const COMPANY = "爱意特工";
+const COMPANY = "Agent No.";
 
 module.exports = {
   prizes,
